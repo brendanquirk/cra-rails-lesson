@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+import Person from './components/Person'
+
 class App extends React.Component {
   state = {
     name: '',
@@ -76,32 +78,17 @@ class App extends React.Component {
           <br />
           <input type="submit" value="Create Person" />
         </form>
-        <div className="people">
-          {this.state.people.map((person) => {
-            return (
-              <div className="person" key={person.id}>
-                <h4>Name: {person.name}</h4>
-                <h5>Age: {person.age}</h5>
-                <button value={person.id} onClick={this.deletePerson}>
-                  X
-                </button>
-                <details>
-                  <summary>Edit Person</summary>
-                  <form id={person.id} onSubmit={this.updatePerson}>
-                    <label htmlFor="name">Name</label>
-                    <br />
-                    <input type="text" id="name" onChange={this.handleChange} />
-                    <label htmlFor="age">Age</label>
-                    <br />
-                    <input type="text" id="age" onChange={this.handleChange} />
-                    <br />
-                    <input type="submit" value="Update Person" />
-                  </form>
-                </details>
-              </div>
-            )
-          })}
-        </div>
+        {this.state.people.map((person) => {
+          return (
+            <Person
+              person={person}
+              key={person.id}
+              updatePerson={this.updatePerson}
+              deletePerson={this.deletePerson}
+              handleChange={this.handleChange}
+            />
+          )
+        })}
       </div>
     )
   }
